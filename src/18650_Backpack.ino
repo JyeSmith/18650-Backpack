@@ -1,3 +1,4 @@
+/*
 MIT License
 
 Copyright (c) 2019 Jye Smith
@@ -19,3 +20,58 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+
+#include "voltage.h"
+#include "display.h"
+#include "beeper.h"
+#include "button.h"
+#include "alarms.h"
+#include "time.h"
+#include "timer.h"
+#include "eeprom.h"
+
+void setup() {
+
+  Buttons::setup(); // Setup buttons first so they can be read during eeprom
+
+  EepromSettings.load();
+
+  Time::setup();
+
+  Voltage::setup();
+  Display::setup();
+
+  Voltage::update();
+  Display::update();
+
+  Beeper::setup();
+
+  // Interrupt for buttons
+  GIMSK = 0b00100000;    // turns on pin change interrupts
+  PCMSK = 0b00011000;    // turn on interrupts on pins PB3 and PB4
+  sei();
+
+}
+
+void loop() {
+
+  Time::update();
+  Buttons::update();
+  Voltage::update();
+  Alarms::update();
+  Display::update();
+
+}
+
+// Button interrupt function
+ISR(PCINT0_vect) {
+
+  if (!digitalRead(buttonMode)) {
+    Buttons::buttonModePressed = true;
+  }
+  else if (!digitalRead(buttonChange)) {
+    Buttons::buttonChangePressed = true;
+  }
+
+}
