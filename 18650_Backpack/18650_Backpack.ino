@@ -64,7 +64,6 @@ void loop() {
   Voltage::update();
   Alarms::update();
   Display::update();
-  EepromSettings.save();
   
 }
 

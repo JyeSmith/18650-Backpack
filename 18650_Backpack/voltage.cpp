@@ -68,6 +68,7 @@ namespace Voltage {
       mAhUpdate.reset();
       EepromSettings.mAh += ( current / 3600 ) * ( (Time::now-previousmAhUpdateTime) / 1000.0 ); 
       previousmAhUpdateTime = Time::now;
+      EepromSettings.save();
     }
   
   }
