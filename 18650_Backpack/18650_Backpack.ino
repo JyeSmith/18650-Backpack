@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include <TinyWireM.h>
 #include "voltage.h"
 #include "display.h"
 #include "beeper.h"
@@ -29,10 +30,12 @@ SOFTWARE.
 #include "alarms.h"
 #include "time.h"
 #include "timer.h"
-#include "eeprom.h"
+#include "at24c02_eeprom.h"
 
 void setup() {
 
+  TinyWireM.begin();
+  
   Buttons::setup(); // Setup buttons first so they can be read during eeprom
 
   EepromSettings.load();
@@ -61,7 +64,8 @@ void loop() {
   Voltage::update();
   Alarms::update();
   Display::update();
-
+  EepromSettings.save();
+  
 }
 
 // Button interrupt function

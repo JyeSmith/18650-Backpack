@@ -173,7 +173,7 @@ void Adafruit_INA219::wireReadRegister(uint8_t reg, uint16_t *value)
 /*! 
     @brief  Configures to INA219 to be able to measure up to 32V and 1A
             of current.  Each unit of current corresponds to 40uA, and each
-            unit of power corresponds to 800Ã¯Â¿Â½W. Counter overflow occurs at
+            unit of power corresponds to 800ÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½W. Counter overflow occurs at
             1.3A.
       
     @note   These calculations assume a 0.1 ohm resistor is present
@@ -201,13 +201,13 @@ void Adafruit_INA219::setCalibration_32V_1A(void)
 
   // 3. Calculate possible range of LSBs (Min = 15-bit, Max = 12-bit)
   // MinimumLSB = MaxExpected_I/32767
-  // MinimumLSB = 0.0000305             (30.5Ã¯Â¿Â½A per bit)
+  // MinimumLSB = 0.0000305             (30.5ÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½A per bit)
   // MaximumLSB = MaxExpected_I/4096
-  // MaximumLSB = 0.000244              (244Ã¯Â¿Â½A per bit)
+  // MaximumLSB = 0.000244              (244ÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½A per bit)
 
   // 4. Choose an LSB between the min and max values
   //    (Preferrably a roundish number close to MinLSB)
-  // CurrentLSB = 0.0000400 (40Ã¯Â¿Â½A per bit)
+  // CurrentLSB = 0.0000400 (40ÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½A per bit)
 
   // 5. Compute the calibration register
   // Cal = trunc (0.04096 / (Current_LSB * RSHUNT))
@@ -217,7 +217,7 @@ void Adafruit_INA219::setCalibration_32V_1A(void)
   
   // 6. Calculate the power LSB
   // PowerLSB = 20 * CurrentLSB
-  // PowerLSB = 0.0008 (800Ã¯Â¿Â½W per bit)
+  // PowerLSB = 0.0008 (800ÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½W per bit)
 
   // 7. Compute the maximum current and shunt voltage values before overflow
   //
@@ -248,7 +248,7 @@ void Adafruit_INA219::setCalibration_32V_1A(void)
 
   // Set multipliers to convert raw current/power values
   ina219_currentDivider_mA = 25;      // Current LSB = 40uA per bit (1000/40 = 25)
-  ina219_powerDivider_mW = 1;         // Power LSB = 800Ã¯Â¿Â½W per bit
+  ina219_powerDivider_mW = 1;         // Power LSB = 800ÃƒÆ’Ã‚Â¯Ãƒâ€šÃ‚Â¿Ãƒâ€šÃ‚Â½W per bit
 
   // Set Calibration register to 'Cal' calculated above 
   wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
@@ -449,5 +449,7 @@ float Adafruit_INA219::getCurrent_mA() {
   valueDec /= ina219_currentDivider_mA;
   return valueDec;
 }
+
+
 
 

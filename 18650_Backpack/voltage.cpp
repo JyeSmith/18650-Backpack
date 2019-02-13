@@ -1,5 +1,5 @@
 #include "voltage.h"
-#include "eeprom.h"
+#include "at24c02_eeprom.h"
         
 namespace Voltage {
 
@@ -68,11 +68,12 @@ namespace Voltage {
       mAhUpdate.reset();
       EepromSettings.mAh += ( current / 3600 ) * ( (Time::now-previousmAhUpdateTime) / 1000.0 ); 
       previousmAhUpdateTime = Time::now;
-      EepromSettings.save();
     }
   
   }
     
 }
+
+
 
 

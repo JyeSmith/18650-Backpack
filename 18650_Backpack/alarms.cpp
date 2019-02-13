@@ -2,7 +2,7 @@
 #include <avr/pgmspace.h>
 #include "beeper.h"
 #include "timer.h"
-#include "eeprom.h"
+#include "at24c02_eeprom.h"
 
 namespace Alarms {
 
@@ -45,5 +45,7 @@ namespace Alarms {
   }
 
 }
+
+
 
 

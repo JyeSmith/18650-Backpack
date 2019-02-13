@@ -1,8 +1,7 @@
 #include "display.h"
 #include <Tiny4kOLED.h>
 #include "Font.h"
-#include "FontBattery.h"
-#include "eeprom.h"
+#include "at24c02_eeprom.h"
 
 namespace Display {
 
@@ -38,12 +37,9 @@ namespace Display {
     oled.clear();
     
     oled.setCursor(0, 0);
-    oled.print(F("SET ALARM VOLTAGE"));
-    oled.setCursor(103, 3);
-    if ((int)displayState > 10) oled.setCursor(97, 3);
-    oled.print((int)displayState);
-    oled.print(F("/"));
-    oled.print((int)displayStatEnum::maxEnum - 1);
+//    oled.print(F("SET ALARM VOLTAGE"));
+    oled.print(F("SET@ALARM@VOLTAGE"));
+//    drawScreenNumber();
     
     oled.setCursor(46, 2);
     oled.print(EepromSettings.alarmVoltage/100.);
@@ -56,8 +52,9 @@ namespace Display {
     oled.clear();
     
     oled.setCursor(0, 0);
-    oled.print(F("SET CALLSIGN"));
-    drawScreenNumber();
+//    oled.print(F("SET CALLSIGN"));
+    oled.print(F("SET@CALLSIGN"));
+//    drawScreenNumber();
     
     oled.setCursor(6, 2);
     oled.print(EepromSettings.callSign);
@@ -67,36 +64,17 @@ namespace Display {
     oled.switchFrame();
   }
 
-  void drawScreenNumber() {
-    oled.setCursor(103, 3);
-    if ((int)displayState > 9) oled.setCursor(97, 3);
-    oled.print((int)displayState);
-    oled.print(F("/"));
-    oled.print((int)displayStatEnum::maxEnum - 1);    
-  }
+//  void drawScreenNumber() {
+//    oled.setCursor(103, 3);
+//    if ((int)displayState > 9) oled.setCursor(97, 3);
+//    oled.print((int)displayState);
+//    oled.print(F("/"));
+//    oled.print((int)displayStatEnum::maxEnum - 1);    
+//  }
   
   void drawHomeScreen() {
-      
-//    uint8_t cellOnePercentage = constrain(
-//                                          map(Voltage::voltageCellOne*100, EepromSettings.alarmVoltage-10, cellFullVoltage, 0, 100
-//                                          ), 0, 100
-//                                        );
-//    uint8_t cellTwoPercentage = constrain(
-//                                          map(Voltage::voltageCellTwo*100, EepromSettings.alarmVoltage-10, cellFullVoltage, 0, 100
-//                                          ), 0, 100
-//                                        );
   
     oled.clear();
-  
-//    oled.setCursor(0, 0);
-//    drawBattery(cellOnePercentage);
-//    oled.setCursor(64, 0);
-//    drawBattery(cellTwoPercentage);
-    
-//    oled.setCursor(64, 2);
-//    oled.print(cellOnePercentage);
-//    oled.setCursor(64, 3);
-//    oled.print(cellTwoPercentage);
   
     oled.setFont(&font);
 
@@ -120,19 +98,24 @@ namespace Display {
 
     // Line
     oled.setCursor(0, 1);
-    oled.print(F("---------------------"));
-
+    for (uint8_t i=0; i<21; i++) {
+      oled.print(F("-"));
+    }
+    
     // Battery and cell voltages
     oled.setCursor(0, 2);
     oled.print(Voltage::voltageBattery);
     oled.print(F("V"));
-    oled.print(F(" ("));
+//    oled.print(F(" ("));
+    oled.print(F("@>"));
     oled.print(Voltage::voltageCellOne);
     oled.print(F("V"));
-    oled.print(F(" + "));
+//    oled.print(F(" + "));
+    oled.print(F("@-@"));
     oled.print(Voltage::voltageCellTwo);
     oled.print(F("V"));
-    oled.print(F(")"));
+//    oled.print(F(")"));
+    oled.print(F("?"));
 
     // mAh
     oled.setCursor(0, 3);
@@ -141,9 +124,9 @@ namespace Display {
     } else {
       oled.print((uint16_t)EepromSettings.mAh);
     }
-    oled.print(F("\""));    // this is lowercase 'm'
+    oled.print(F(";"));    // this is lowercase 'm'
     oled.print(F("A"));  
-    oled.print(F("\'"));    // this is lowercase 'h'
+    oled.print(F("<"));    // this is lowercase 'h'
 
     // Current
     if (Voltage::current < 100) {
@@ -156,7 +139,7 @@ namespace Display {
       oled.setCursor(89, 3);
       oled.print((uint16_t)Voltage::current);
     }
-    oled.print(F("\""));    // this is lowercase 'm'
+    oled.print(F(";"));    // this is lowercase 'm'
     oled.print(F("A"));
       
     oled.switchFrame();
@@ -203,5 +186,7 @@ namespace Display {
   }
   
 }
+
+
 
 
