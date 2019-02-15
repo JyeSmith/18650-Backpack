@@ -11,6 +11,7 @@ namespace Voltage {
   extern Adafruit_INA219 ina219Batt;
   extern Adafruit_INA219 ina219Cell;
 
+  extern bool balanceWirePresent;
   extern float voltageCellOne;
   extern float voltageCellTwo;
   extern float voltageBattery;

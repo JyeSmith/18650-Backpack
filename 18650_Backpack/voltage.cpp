@@ -13,6 +13,7 @@ namespace Voltage {
   uint32_t previousmAhUpdateTime = 0;
   
   Timer mAhUpdate = Timer(mAhUpdatePeriod);
+  bool balanceWirePresent = true;
   
   void setup() {
 
@@ -23,6 +24,12 @@ namespace Voltage {
   
     ina219Cell.begin(0b1000000);    // A0+A1=GND
     ina219Cell.setCalibration_32V_1A();
+
+    update();
+
+    if (!voltageCellOne) {
+      balanceWirePresent = false;
+    }
     
   }
       
@@ -39,23 +46,26 @@ namespace Voltage {
       shuntVoltage += ina219Batt.getShuntVoltage_mV();
       busVoltage += ina219Batt.getBusVoltage_V();
       current += ina219Batt.getCurrent_mA();
+      voltageCellOne += ina219Cell.getBusVoltage_V();
     }
     shuntVoltage /= 8;
     busVoltage /= 8;
     current /= 8;
-    
-    voltageBattery = busVoltage + (shuntVoltage/1000);
-  
-    for (uint8_t i = 0; i < 8; i++) {
-      voltageCellOne += ina219Cell.getBusVoltage_V();
-    }
     voltageCellOne /= 8;
     
-    if (voltageBattery > voltageCellOne) {
-      voltageCellTwo = voltageBattery - voltageCellOne;
+    voltageBattery = busVoltage + (shuntVoltage/1000);
+
+    if (balanceWirePresent) {
+      if (voltageBattery > voltageCellOne) {
+        voltageCellTwo = voltageBattery - voltageCellOne;
+      } else {
+        voltageCellTwo = 0;
+      }
     } else {
-      voltageCellTwo = 0;
+      voltageCellOne = voltageBattery / 2;  // pseudo cell reading 
+      voltageCellTwo = voltageCellOne;      // pseudo cell reading 
     }
+    
 
     if (mAhUpdate.hasTicked()) {
       mAhUpdate.reset();
