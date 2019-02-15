@@ -25,7 +25,6 @@ namespace Alarms {
       isBatteryAlarmOn = false ;
     }
     
-//    if (Voltage::voltageCellOne*100 < EepromSettings.alarmVoltageCritical || Voltage::voltageCellTwo*100 < EepromSettings.alarmVoltageCritical) {
     if (Voltage::voltageCellOne*100 < EepromSettings.alarmVoltage-10 || Voltage::voltageCellTwo*100 < EepromSettings.alarmVoltage-10) {
       isBatteryAlarmCritical = true;
     }
@@ -45,7 +44,3 @@ namespace Alarms {
   }
 
 }
-
-
-
-

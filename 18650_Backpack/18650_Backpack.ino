@@ -33,11 +33,10 @@ SOFTWARE.
 #include "at24c02_eeprom.h"
 
 void setup() {
-
-  TinyWireM.begin();
   
   Buttons::setup(); // Setup buttons first so they can be read during eeprom
 
+  EepromSettings.setup();
   EepromSettings.load();
 
   Time::setup();

@@ -24,5 +24,3 @@ void Timer::reset() {
   this->nextTick = Time::now + this->delay;
   this->ticked = false;
 }
-
-

@@ -4,7 +4,13 @@
 #include "beeper.h"
 
 struct EepromSettingsStruct EepromSettings;
-
+  
+void EepromSettingsStruct::setup() {
+  
+  TinyWireM.begin();
+  
+}
+  
 void EepromSettingsStruct::load() {
   
   byte* p = (byte*)(void*)&EepromSettings; // https://playground.arduino.cc/Code/EEPROMWriteAnything

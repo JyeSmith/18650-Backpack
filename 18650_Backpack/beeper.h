@@ -13,5 +13,3 @@ namespace Beeper {
 }
 
 #endif
-
-

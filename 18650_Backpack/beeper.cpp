@@ -1,5 +1,3 @@
-//#include <Arduino.h>
-//#include <avr/pgmspace.h>
 #include "beeper.h"
 
 namespace Beeper {
@@ -39,7 +37,3 @@ namespace Beeper {
   }
 
 }
-
-
-
-

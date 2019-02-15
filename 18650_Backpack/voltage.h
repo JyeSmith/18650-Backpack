@@ -15,7 +15,6 @@ namespace Voltage {
   extern float voltageCellTwo;
   extern float voltageBattery;
   extern float current;
-//  extern float mAh;
   extern uint32_t previousmAhUpdateTime;
   extern Timer mAhUpdate;
   
@@ -25,5 +24,3 @@ namespace Voltage {
 }
 
 #endif
-
-

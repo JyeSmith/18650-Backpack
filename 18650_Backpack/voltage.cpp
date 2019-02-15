@@ -10,7 +10,6 @@ namespace Voltage {
   float voltageCellTwo = 0;
   float voltageBattery = 0;
   float current = 0;
-//  float mAh = 0;
   uint32_t previousmAhUpdateTime = 0;
   
   Timer mAhUpdate = Timer(mAhUpdatePeriod);
@@ -19,11 +18,9 @@ namespace Voltage {
 
     previousmAhUpdateTime = Time::now;
     
-    //  ina219Batt.begin(0b1000000);    // A0+A1=GND
     ina219Batt.begin(0b1000101);    // A0+A1=+5v
     ina219Batt.setCalibration_32V_1A();
   
-    //  ina219Cell.begin(0b1000101);    // A0+A1=+5v
     ina219Cell.begin(0b1000000);    // A0+A1=GND
     ina219Cell.setCalibration_32V_1A();
     
@@ -53,9 +50,6 @@ namespace Voltage {
       voltageCellOne += ina219Cell.getBusVoltage_V();
     }
     voltageCellOne /= 8;
-  
-//    ////////  REMOVE AFTER TESTING
-//    voltageCellOne = voltageBattery / 2;
     
     if (voltageBattery > voltageCellOne) {
       voltageCellTwo = voltageBattery - voltageCellOne;
@@ -63,7 +57,6 @@ namespace Voltage {
       voltageCellTwo = 0;
     }
 
-//    if (Time::now > previousmAhUpdateTime+mAhUpdatePeriod) {
     if (mAhUpdate.hasTicked()) {
       mAhUpdate.reset();
       EepromSettings.mAh += ( current / 3600 ) * ( (Time::now-previousmAhUpdateTime) / 1000.0 ); 
@@ -74,7 +67,3 @@ namespace Voltage {
   }
     
 }
-
-
-
-

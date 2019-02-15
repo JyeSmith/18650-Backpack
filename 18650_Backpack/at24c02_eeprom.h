@@ -11,6 +11,7 @@ struct EepromSettingsStruct {
   float mAh;
   uint32_t onTime;
   
+  void setup();
   void load();
   void save();
   void initDefaults();

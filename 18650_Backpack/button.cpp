@@ -58,7 +58,7 @@ namespace Buttons {
         case Display::callSignScreenChar:
           EepromSettings.callSign[Display::callSignLetterSelected] += 1;
           if (EepromSettings.callSign[Display::callSignLetterSelected] > 90) {
-            EepromSettings.callSign[Display::callSignLetterSelected] = 32;
+            EepromSettings.callSign[Display::callSignLetterSelected] = 45;
           }
           EepromSettings.save();
           break;
@@ -77,7 +77,3 @@ namespace Buttons {
   }
   
 }
-
-
-
-

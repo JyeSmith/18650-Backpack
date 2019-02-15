@@ -18,5 +18,3 @@ namespace Alarms {
 }
 
 #endif
-
-

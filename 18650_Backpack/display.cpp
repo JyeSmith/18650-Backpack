@@ -146,37 +146,6 @@ namespace Display {
   
   }
 
-//  void drawBattery(uint8_t percentage) {
-//
-//    uint8_t numberOfFullLInes = 54 * (percentage / 100.0);
-//  
-//    oled.setFont(&fontBattery);
-//  
-//    // Draw beginning of battery
-//    oled.print(F(" "));
-//    oled.print(F("!"));
-//  
-//    // Draw full part
-//    for (uint8_t i = 0; i < numberOfFullLInes; i++) {
-//      oled.print(F("\""));    
-//    }
-//  
-//    // Draw empty part
-//    for (uint8_t i = 0; i < (54 - numberOfFullLInes); i++) {
-//      oled.print(F("!"));
-//    }
-//  
-//    // Draw End and nipple
-//    oled.print(F("!"));
-//    oled.print(F(" "));
-//    oled.print(F("#"));
-//    oled.print(F("#"));
-//    oled.print(F("#"));
-//    oled.print(F("#"));
-//    oled.print(F("$"));
-//    
-//  }
-
   void clear() {
     oled.clear();
   }
@@ -186,7 +155,3 @@ namespace Display {
   }
   
 }
-
-
-
-
