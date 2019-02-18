@@ -27,7 +27,7 @@ namespace Voltage {
 
     update();
 
-    if (!voltageCellOne) {
+    if (voltageCellOne < 0.1) {
       balanceWirePresent = false;
     }
     
